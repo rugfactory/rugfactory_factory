@@ -225,7 +225,7 @@ mod tests {
     #[test]
     fn test_shit_token_operations() {
         let mut context = get_context(false);
-        testing_env!(context);
+        testing_env!(context.clone());
 
         let mut contract = Contract::init(
             "owner.testnet".parse().unwrap(),
