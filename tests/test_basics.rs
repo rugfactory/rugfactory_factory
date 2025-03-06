@@ -35,6 +35,14 @@ async fn test_basics_on(contract_wasm: &[u8]) -> Result<(), Box<dyn std::error::
         .await?;
     assert!(outcome.is_success());
 
+    // Verify SHIT balance
+    let balance = contract
+        .view("user_get_shit_balance")
+        .args_json(json!({"account_id": user_account.id()}))
+        .await?
+        .json::<String>()?;
+    assert_eq!(balance, "200");
+
     let outcome = user_account
         .call(contract.id(), "greeting_set")
         .args_json(json!({"greeting": "Hello World!"}))

@@ -60,7 +60,7 @@ impl Contract {
     #[payable]
     pub fn user_deposit_near(&mut self) {
         let account_id = env::predecessor_account_id();
-        let deposit = env::attached_deposit().as_yoctonear();
+        let deposit = env::attached_deposit().as_yoctonear() as u128;
         let balance = self.user_near_balances.get(&account_id).unwrap_or(&0);
         self.user_near_balances.insert(account_id, balance + deposit);
     }
