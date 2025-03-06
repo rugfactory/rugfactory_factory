@@ -42,7 +42,7 @@ cargo near build
 ./build_cargo.sh
 ./build_reproducible.sh
 
-
+cargo check
 cargo test
 cargo clean
 
