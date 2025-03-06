@@ -7,7 +7,7 @@ cargo near abi
 cargo build --target wasm32-unknown-unknown --release
 
 # Optimize WASM using wasm-opt
-wasm-opt -Oz -o target/wasm32-unknown-unknown/release/cargo_build_rugfactory_factory.wasm target/wasm32-unknown-unknown/release/*.wasm
+wasm-opt -Oz -o target/wasm32-unknown-unknown/release/cargo_build_rugfactory_factory.wasm target/wasm32-unknown-unknown/release/rugfactory_factory.wasm
 
 # Create build_near directory if it doesn't exist
 mkdir -p build_near
