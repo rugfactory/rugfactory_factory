@@ -3,6 +3,10 @@ use near_sdk::json_types::U128;
 use near_sdk::{env, log, near_bindgen, AccountId, NearToken, PanicOnDefault, Promise};
 use std::collections::HashMap;
 
+
+
+
+
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Contract {
@@ -15,8 +19,19 @@ pub struct Contract {
     user_shit_balances: HashMap<AccountId, u128>,
 }
 
+
+
+
+
+
 #[near_bindgen]
 impl Contract {
+
+
+
+
+    /// 👋
+    /// Initialization method
     #[init]
     pub fn init(
         owner_id: AccountId,
@@ -35,7 +50,17 @@ impl Contract {
         }
     }
 
-    // Greeting methods
+
+
+
+
+
+
+    
+
+
+    /// 👋
+    /// Greeting methods
     pub fn greeting_get(&self) -> String {
         self.greeting.clone()
     }
@@ -55,6 +80,16 @@ impl Contract {
         log!("Saving greeting: {}", greeting);
         self.greeting = greeting;
     }
+
+
+
+
+
+
+
+
+    /// 👋
+    /// User methods
 
     // User deposit methods
     #[payable]
@@ -116,6 +151,26 @@ impl Contract {
         U128(0) // Accept all tokens
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #[cfg(test)]
 mod tests {
