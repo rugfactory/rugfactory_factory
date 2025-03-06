@@ -4,3 +4,4 @@
 # RUST and NEAR
 /target
 /build_near
+/build_cargo
