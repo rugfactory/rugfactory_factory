@@ -60,13 +60,22 @@ complete walkthrough of methods and notes
 
 there are some internal methods that the owner can call if necessary, but also get carried out when users call the methods anyone can call. there are also some view methods, just to make it easier for contract to get information for doing some of the other methods.
 
-✅ new
+new
 - init
 
-✅ hello
+hello
 we will keep the hello methods, and add a twist where they have to pay 100 Shit to update.
 - greeting_get
 - greeting_set
+
+
+rugfactory_token_create method and summary of actions
+this is separate from the whole create form ideas and rug token side of the contract, and this is so users can create tokens if they want to be the full owner. will deduct 1000 $SHIT and 1.90 Near from the users balance when they call this method.
+we will probly use this method for the rug side of the contract as well, and it will be nice to take some steps like register with ref and create a new lp when new tokens are created
+there seem to be no logs when the create_token method is called on rtkn, and empty result, but new token address will be a lowercase of the ticker example: first.rtkn.testnet
+the add_simple_pool with ref give the number result of the pool.
+- rugfactory_token_create, for creating a new token, will send 1.77 near to the factory contract and will call "create_token" on the factory contract address with the provided token details
+
 
 **ideas summary**
 - anyone can submit ideas
@@ -100,14 +109,6 @@ timer methods
 - timer_get_warning, view method that returns either "🚨 Less than 10 minutes🚨" with actual number of minuets left if less than 10 or "You still have plenty of time"
 - timer_reward_idea, internal method for rewarding creator if the current idea when ever anyone calls add or remove time
 
-✅ rugfactory_token_create method and summary of actions
-this is separate from the whole create form ideas and rug token side of the contract, and this is so users can create tokens if they want to be the full owner. will deduct 1000 $SHIT and 1.90 Near from the users balance when they call this method.
-we will probly use this method for the rug side of the contract as well, and it will be nice to take some steps like register with ref and create a new lp when new tokens are created
-there seem to be no logs when the create_token method is called on rtkn, and empty result, but new token address will be a lowercase of the ticker example: first.rtkn.testnet
-the add_simple_pool with ref give the number result of the pool.
-- rugfactory_token_create, for creating a new token, will send 1.77 near to the factory contract and will call "create_token" on the factory contract address with the provided token details
-
-
 rugfactory methods summary
 - rewards the person who calls this method with a 1000 $SHIT, because someone has to do it.
 - this method can only be called when the timer is at 0
@@ -139,7 +140,7 @@ for getting details from ref, there should already be wraped near deposited in r
 - ref_call_register_tokens, for registering tokens with ref
 
 
-✅ user methods
+user methods
 the methods for depositing may not be needed, because contract can keep track of users deposit, but they should be able to view their near balance, and withdraw near. will not be able to withdraw shit. and the contract should automatically deduct form a users balance when they do an action.
 - user_deposit_shit, for users to deposit shit token
 - user_get_shit_balance, for users to view their shit deposit balance
@@ -150,7 +151,7 @@ the methods for depositing may not be needed, because contract can keep track of
 - ft_on_transfer
 
 
-✅ get/update - admin
+get/update - admin
 some of these are view only, and the ones that are callable are only callable by the account owner. the contract address should include both the testnet and mainnet address, but maybe even though they both will be in the contract only return the one for the network the contract is on, and i guess if they update the contract address of the shit token or ref they only have to do it for the network the contract is deployed to.
 - get_owner_id, should return the near account this contract is deployed to, and this is how the contract should now what network it it on
 - get_shit_contract_address, should return the contract address of the shit token used for payment and rewards
@@ -171,12 +172,12 @@ some of these are view only, and the ones that are callable are only callable by
 - charge user 1000 $SHIT for adding time
 - charge user 1000 $SHIT for removing time
 - charge user 100 $SHIT for updating greeting
-- internal: send 1.77 Near to rtkn factory when creating token
+- internal: send 1.77 Near to the new token account when creating token
 
 ℹ️ Other info in case I forgot to mention it elsewheer
 - 18 deciamls satndard for token creation
 - 1 billion token supply
-- default icon, and max icon sixe 1KB
+- default icon, and max icon size 1KB
 
 
 ---
