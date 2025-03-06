@@ -61,7 +61,7 @@ complete walkthrough of methods and notes
 
 there are some internal methods that the owner can call if necessary, but also get carried out when users call the methods anyone can call. there are also some view methods, just to make it easier for contract to get information for doing some of the other methods.
 
-new
+✅ new
 needs to be inited with the owner info, ref adress, wrap near adress, and shit token adress
 - init
 
