@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Generate ABI
-cargo near abi
 
 # Build WASM
 cargo build --target wasm32-unknown-unknown --release
@@ -14,6 +12,5 @@ mkdir -p build_near
 
 # Copy build artifacts to build_near directory
 cp target/wasm32-unknown-unknown/release/cargo_build_rugfactory_factory.wasm build_near/
-cp target/near/rugfactory_factory_abi.json build_near/
 
 echo "Build completed successfully!"
