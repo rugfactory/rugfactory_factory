@@ -1,16 +1,12 @@
 #!/bin/bash
 
-
 # Build WASM
 cargo build --target wasm32-unknown-unknown --release
 
-# Optimize WASM using wasm-opt
-wasm-opt -Oz -o target/wasm32-unknown-unknown/release/cargo_build_rugfactory_factory.wasm target/wasm32-unknown-unknown/release/rugfactory_factory.wasm
+# Create build_cargo directory if it doesn't exist
+mkdir -p build_cargo
 
-# Create build_near directory if it doesn't exist
-mkdir -p build_near
-
-# Copy build artifacts to build_near directory
-cp target/wasm32-unknown-unknown/release/cargo_build_rugfactory_factory.wasm build_near/
+# Optimize WASM and output directly to build_cargo directory
+wasm-opt -Oz -o build_cargo/rugfactory_factory.wasm target/wasm32-unknown-unknown/release/rugfactory_factory.wasm
 
 echo "Build completed successfully!"
