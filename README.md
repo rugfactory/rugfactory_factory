@@ -69,13 +69,24 @@ we will keep the hello methods, and add a twist where they have to pay 100 Shit 
 - greeting_set
 
 
-rugfactory_token_create method and summary of actions
+user methods
+the methods for depositing may not be needed, because contract can keep track of users deposit, but they should be able to view their near balance, and withdraw near. will not be able to withdraw shit. and the contract should automatically deduct form a users balance when they do an action.
+- user_deposit_shit, for users to deposit shit token
+- user_get_shit_balance, for users to view their shit deposit balance
+- user_deposit_near, for users to deposit near
+- user_get_near_balance, for users to view their near deposit balance
+- user_withdraw_near, for withdrawing near
+- user_get_balance, get the near and shit depostite balance of a user.
+- ft_on_transfer
+
+
+token methods and summary of actions
 this is separate from the whole create form ideas and rug token side of the contract, and this is so users can create tokens if they want to be the full owner. will deduct 1000 $SHIT and 1.90 Near from the users balance when they call this method.
 we will probly use this method for the rug side of the contract as well, and it will be nice to take some steps like register with ref and create a new lp when new tokens are created
-there seem to be no logs when the create_token method is called on rtkn, and empty result, but new token address will be a lowercase of the ticker example: first.rtkn.testnet
-the add_simple_pool with ref give the number result of the pool.
-- rugfactory_token_create, for creating a new token, will send 1.77 near to the factory contract and will call "create_token" on the factory contract address with the provided token details
-
+- token_create, for creating a new token, will create a new subaccount send 1.77 near and deplpoy token conrtact and init with new
+- token_list_all, for listing all the tokens that have been created
+- token_add_token, for adding tokens to the list that may not be on the list, also users cannot create tokens on this list, owner only
+- token_remove_token, for removeing a token from the list, owner only
 
 **ideas summary**
 - anyone can submit ideas
@@ -139,16 +150,6 @@ for getting details from ref, there should already be wraped near deposited in r
 - ref_call_storage_deposit, for registering account, account should be already registered, so this will not happen automatically but owner can call this
 - ref_call_register_tokens, for registering tokens with ref
 
-
-user methods
-the methods for depositing may not be needed, because contract can keep track of users deposit, but they should be able to view their near balance, and withdraw near. will not be able to withdraw shit. and the contract should automatically deduct form a users balance when they do an action.
-- user_deposit_shit, for users to deposit shit token
-- user_get_shit_balance, for users to view their shit deposit balance
-- user_deposit_near, for users to deposit near
-- user_get_near_balance, for users to view their near deposit balance
-- user_withdraw_near, for withdrawing near
-- user_get_balance, get the near and shit depostite balance of a user.
-- ft_on_transfer
 
 
 get/update - admin
