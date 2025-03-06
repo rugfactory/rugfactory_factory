@@ -48,6 +48,7 @@ cargo clean
 
 
 cargo near deploy build-reproducible-wasm <account-id>
+near deploy <account-id> <wasm/path>
 
 ```
 
