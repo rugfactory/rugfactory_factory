@@ -1,2 +1,6 @@
-/target
+# Mac
 .DS_Store
+
+# RUST and NEAR
+/target
+
