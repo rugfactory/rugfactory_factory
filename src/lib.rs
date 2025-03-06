@@ -60,7 +60,7 @@ impl Contract {
     #[payable]
     pub fn user_deposit_near(&mut self) {
         let account_id = env::predecessor_account_id();
-        let deposit = env::attached_deposit();
+        let deposit = env::attached_deposit().as_yoctonear();
         let balance = self.user_near_balances.get(&account_id).unwrap_or(&0);
         self.user_near_balances.insert(account_id, balance + deposit);
     }
@@ -102,7 +102,7 @@ impl Contract {
         &mut self,
         sender_id: AccountId,
         amount: U128,
-        msg: String,
+        _msg: String,
     ) -> U128 {
         assert_eq!(
             env::predecessor_account_id(),
