@@ -295,7 +295,7 @@ impl Contract {
                     .function_call(
                         "storage_deposit".to_string(),
                         json!({"account_id": account_id}).to_string().into_bytes(),
-                        NearToken::from_near(0),
+                        NearToken::from_yoctonear(1_250_000_000_000_000_000_000), // 0.00125 NEAR
                         near_sdk::Gas::from_tgas(30)
                     )
             )
@@ -308,7 +308,7 @@ impl Contract {
                             "receiver_id": account_id,
                             "amount": "1000000000000000000000000000"
                         }).to_string().into_bytes(),
-                        NearToken::from_yoctonear(1),
+                        NearToken::from_near(0),  // No deposit needed for ft_transfer
                         near_sdk::Gas::from_tgas(30)
                     )
             )
