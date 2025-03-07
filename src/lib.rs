@@ -1,6 +1,10 @@
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::json_types::U128;
 use near_sdk::{env, log, near_bindgen, AccountId, NearToken, PanicOnDefault, Promise};
+use near_sdk::serde::{Deserialize, Serialize};
+use std::fs;
+use near_sdk::base64;
+use near_sdk::serde_json::json;
 use std::collections::HashMap;
 
 
@@ -9,6 +13,15 @@ use std::collections::HashMap;
 
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
+#[serde(crate = "near_sdk::serde")]
+pub struct TokenMetadata {
+    pub name: String,
+    pub symbol: String,
+    pub icon: Option<String>,
+    pub creator_id: AccountId,
+}
+
 pub struct Contract {
     owner_id: AccountId,
     ref_contract: AccountId,
@@ -17,6 +30,8 @@ pub struct Contract {
     greeting: String,
     user_near_balances: HashMap<AccountId, u128>,
     user_shit_balances: HashMap<AccountId, u128>,
+    tokens: HashMap<String, TokenMetadata>,
+    default_icon: String,
 }
 
 
@@ -47,6 +62,8 @@ impl Contract {
             greeting: "Hello".to_string(),
             user_near_balances: HashMap::new(),
             user_shit_balances: HashMap::new(),
+            tokens: HashMap::new(),
+            default_icon: "data:image/svg+xml;base64,PHN2ZyBpZD0iU1VORlVOX1JPVU5EX0lDT04iIHZpZXdCb3g9IjAgMCAxMDgwIDEwODAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjEwODAiIGhlaWdodD0iMTA4MCIgZmlsbD0iI0IzOTU3MCIvPgogIDxjaXJjbGUgY3g9IjU0MCIgY3k9IjU0MCIgcj0iMzAwIiBmaWxsPSIjMzgyQzFGIiAvPgo8L3N2Zz4=".to_string(),
         }
     }
 
@@ -188,6 +205,84 @@ impl Contract {
         self.user_shit_balances.insert(sender_id, balance + amount.0);
 
         U128(0) // Accept all tokens
+    }
+
+
+
+
+
+
+
+
+    
+
+    /// 👋
+    /// Token methods
+    pub fn token_create(&mut self, name: String, symbol: String, icon: Option<String>) -> Promise {
+        let account_id = env::predecessor_account_id();
+        
+        // Verify user has enough balance
+        let near_balance = self.user_near_balances.get(&account_id).unwrap_or(&0);
+        let shit_balance = self.user_shit_balances.get(&account_id).unwrap_or(&0);
+        
+        assert!(near_balance >= &1_990_000_000_000_000_000_000_000, "Not enough NEAR balance. Need 1.99 NEAR");
+        assert!(shit_balance >= &1000, "Not enough SHIT balance. Need 1000 SHIT");
+
+        // Validate symbol (will be used as subaccount name)
+        assert!(symbol.chars().all(|c| c.is_ascii_alphanumeric()), "Symbol must be alphanumeric");
+        assert!(symbol.len() <= 20, "Symbol too long");
+        
+        // Validate icon
+        let icon_data = icon.unwrap_or_else(|| self.default_icon.clone());
+        assert!(icon_data.len() <= 1024, "Icon data URL too large");
+
+        // Deduct fees
+        self.user_near_balances.insert(account_id.clone(), near_balance - 1_990_000_000_000_000_000_000_000);
+        self.user_shit_balances.insert(account_id.clone(), shit_balance - 1000);
+
+        // Create metadata
+        let metadata = TokenMetadata {
+            name,
+            symbol: symbol.clone(),
+            icon: Some(icon_data),
+            creator_id: account_id.clone(),
+        };
+
+        // Store token info
+        self.tokens.insert(symbol.clone(), metadata);
+
+        // Create subaccount and deploy token contract
+        let subaccount = format!("{}.{}", symbol, env::current_account_id());
+        let subaccount_id: AccountId = subaccount.parse().unwrap();
+
+        // Read token contract bytes
+        let wasm_bytes = include_bytes!("../res/fungible_token.wasm").to_vec();
+
+        // Deploy and initialize token contract
+        Promise::new(subaccount_id.clone())
+            .create_account()
+            .transfer(NearToken::from_yoctonear(1_900_000_000_000_000_000_000_000)) // 1.9 NEAR
+            .deploy_contract(wasm_bytes)
+            .function_call(
+                "new".to_string(),
+                json!({
+                    "owner_id": env::current_account_id(),
+                    "total_supply": "1000000000000000000000000000", // 1 billion with 24 decimals
+                    "metadata": {
+                        "spec": "ft-1.0.0",
+                        "name": name,
+                        "symbol": symbol,
+                        "icon": icon_data,
+                        "decimals": 24
+                    }
+                }).to_string().into_bytes(),
+                NearToken::from_near(0),
+                NearToken::from_gas(30_000_000_000_000)
+            )
+    }
+
+    pub fn token_list_all(&self) -> Vec<(String, TokenMetadata)> {
+        self.tokens.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
     }
 }
 
