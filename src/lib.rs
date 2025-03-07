@@ -211,7 +211,6 @@ impl Contract {
 
 
 
-
     
 
     /// 👋
@@ -282,8 +281,40 @@ impl Contract {
     pub fn token_list_all(&self) -> Vec<(String, TokenMetadata)> {
         self.tokens.iter().map(|(k, v)| (k.to_string(), v.to_owned())).collect::<Vec<(String, TokenMetadata)>>()
     }
-}
 
+    pub fn token_delete(&mut self, token_symbol: String) -> Promise {
+        let account_id = env::predecessor_account_id();
+        
+        // Get token metadata and verify caller is creator
+        let metadata = self.tokens.get(&token_symbol)
+            .expect("Token not found");
+        assert_eq!(
+            metadata.creator_id,
+            account_id,
+            "Only token creator can delete the token"
+        );
+
+        // Create subaccount ID
+        let subaccount = format!("{}.{}", token_symbol, env::current_account_id());
+        let subaccount_id: AccountId = subaccount.parse().unwrap();
+
+        // Remove token from list
+        self.tokens.remove(&token_symbol);
+
+        // Call token delete method and refund NEAR
+        Promise::new(subaccount_id)
+            .function_call(
+                "rugfactory_token_delete".to_string(),
+                "".into(),
+                NearToken::from_near(0),
+                near_sdk::Gas::from_tgas(30)
+            )
+            .then(
+                Promise::new(account_id)
+                    .transfer(NearToken::from_yoctonear(1_500_000_000_000_000_000_000_000)) // 1.5 NEAR
+            )
+    }
+}
 
 
 

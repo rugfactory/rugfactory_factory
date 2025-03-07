@@ -93,8 +93,6 @@ all tokens are created with conrtact's account being the owener, and then regist
 contract will keep track of who created what tokens are created, and who created what idea, so that when the tokens are deleted we can refund the user their money back to their account. only 1.5 near can be refunded to their account not the full amount.
 - token_create, for creating a new token, will create a new subaccount send 1.90 near and deplpoy token conrtact and init with new
 - token_list_all, for listing all the tokens that have been created
-- token_add_token, for adding tokens to the list that may not be on the list, also users cannot create tokens on this list, owner only
-- token_remove_token, for removeing a token from the list, owner only
 - token_delete, for calling the "rugfactory_token_delete" method on the token account
 
 **ideas summary**
