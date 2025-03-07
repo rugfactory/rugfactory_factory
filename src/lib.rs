@@ -50,6 +50,10 @@ impl Contract {
         }
     }
 
+
+     /// 👋
+    /// Admin methods
+
     pub fn admin_update_info(
         &mut self,
         ref_contract: AccountId,
@@ -71,7 +75,14 @@ impl Contract {
         log!("Contract info updated successfully");
     }
 
-
+    pub fn admin_get_info(&self) -> (AccountId, AccountId, AccountId, AccountId) {
+        (
+            self.owner_id.clone(),
+            self.ref_contract.clone(),
+            self.shit_token.clone(),
+            self.wrap_near.clone(),
+        )
+    }
 
 
 
@@ -79,6 +90,8 @@ impl Contract {
 
     
 
+
+    
 
     /// 👋
     /// Greeting methods
@@ -104,21 +117,6 @@ impl Contract {
 
 
 
-
-
-
-
-
-    /// 👋
-    /// Admin methods
-    pub fn admin_get_info(&self) -> (AccountId, AccountId, AccountId, AccountId) {
-        (
-            self.owner_id.clone(),
-            self.ref_contract.clone(),
-            self.shit_token.clone(),
-            self.wrap_near.clone(),
-        )
-    }
 
 
 
