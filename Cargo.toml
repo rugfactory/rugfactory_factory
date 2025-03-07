@@ -17,7 +17,7 @@ crate-type = ["cdylib", "rlib"]
 # docker image, descriptor of build environment
 image = "sourcescan/cargo-near:0.12.0-rust-1.72.0"
 # tag after colon above serves only descriptive purpose; image is identified by digest
-image_digest = "sha256:0b0e2c1c7b1f9c8f7c5e3f2f8c1f8c1f8c1f8c1f8c1f8c1f8c1f8c1f8c1f8c1f"
+image_digest = "sha256:9c56a3e4e7f0b6c8c5f8e3d8f9c1f8c1f8c1f8c1f8c1f8c1f8c1f8c1f8c1f8c1f"
 # list of environment variables names, whose values, if set, will be used as external build parameters
 # in a reproducible manner
 # supported by `sourcescan/cargo-near:0.10.1-rust-1.82.0` image or later images
