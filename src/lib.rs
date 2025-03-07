@@ -331,7 +331,7 @@ impl Contract {
                             "tokens": [subaccount_id.to_string(), self.wrap_near.to_string()],
                             "fee": 10 // 0.10% fee for lp pair
                         }).to_string().into_bytes(),
-                        NearToken::from_yoctonear(32_300_000_000_000_000_000_000),  // Required storage deposit for pool creation (0.0323 NEAR)
+                        NearToken::from_yoctonear(3_230_000_000_000_000_000_000),  // Required storage deposit for pool creation (0.00323 NEAR)
                         near_sdk::Gas::from_tgas(30)
                     )
             )
