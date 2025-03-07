@@ -76,7 +76,6 @@ we will keep the hello methods, and add a twist where they have to pay 100 Shit 
 ✅ user methods
 <br/>
 the methods for depositing may not be needed, because contract can keep track of users deposit, but they should be able to view their near balance, and withdraw near. will not be able to withdraw shit. and the contract should automatically deduct form a users balance when they do an action.
-- user_deposit_shit, for users to deposit shit token
 - user_get_shit_balance, for users to view their shit deposit balance
 - user_deposit_near, for users to deposit near
 - user_get_near_balance, for users to view their near deposit balance
