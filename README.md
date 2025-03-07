@@ -62,16 +62,19 @@ complete walkthrough of methods and notes
 there are some internal methods that the owner can call if necessary, but also get carried out when users call the methods anyone can call. there are also some view methods, just to make it easier for contract to get information for doing some of the other methods.
 
 ✅ new
+<br/>
 needs to be inited with the owner info, ref adress, wrap near adress, and shit token adress
 - init
 
 ✅ hello
+<br/>
 we will keep the hello methods, and add a twist where they have to pay 100 Shit to update.
 - greeting_get
 - greeting_set
 
 
 ✅ user methods
+<br/>
 the methods for depositing may not be needed, because contract can keep track of users deposit, but they should be able to view their near balance, and withdraw near. will not be able to withdraw shit. and the contract should automatically deduct form a users balance when they do an action.
 - user_deposit_shit, for users to deposit shit token
 - user_get_shit_balance, for users to view their shit deposit balance
@@ -83,6 +86,7 @@ the methods for depositing may not be needed, because contract can keep track of
 
 
 token methods and summary of actions
+<br/>
 this is separate from the whole create form ideas and rug token side of the contract, and this is so users can create tokens if they want to be the full owner. will deduct 1000 $SHIT and 1.90 Near from the users balance when they call this method.
 we will probly use this method for the rug side of the contract as well, and it will be nice to take some steps like register with ref and create a new lp when new tokens are created
 - token_create, for creating a new token, will create a new subaccount send 1.77 near and deplpoy token conrtact and init with new
@@ -154,7 +158,10 @@ for getting details from ref, there should already be wraped near deposited in r
 
 
 
-✅ admin - the owener should also be able to run the init method to update the contract info whenever they want
+✅ admin
+<br/>
+the owener should also be able to run the init method to update the contract info whenever they want
+
 - admin_get_info, returns contract configuration information including owner_id, contract addresses
 
 ---
