@@ -6,7 +6,7 @@ use near_sdk::serde_json::json;
 use std::collections::HashMap;
 
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, schemars::JsonSchema)]
 #[serde(crate = "near_sdk::serde")]
 pub struct TokenMetadata {
     pub name: String,
