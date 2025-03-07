@@ -18,15 +18,15 @@ pub struct TokenMetadata {
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Contract {
-    owner_id: AccountId,
-    ref_contract: AccountId,
-    shit_token: AccountId,
-    wrap_near: AccountId,
-    greeting: String,
-    user_near_balances: HashMap<AccountId, u128>,
-    user_shit_balances: HashMap<AccountId, u128>,
-    tokens: HashMap<String, TokenMetadata>,
-    default_icon: String,
+    pub owner_id: AccountId,
+    pub ref_contract: AccountId,
+    pub shit_token: AccountId,
+    pub wrap_near: AccountId,
+    pub greeting: String,
+    pub user_near_balances: HashMap<AccountId, u128>,
+    pub user_shit_balances: HashMap<AccountId, u128>,
+    pub tokens: HashMap<String, TokenMetadata>,
+    pub default_icon: String,
 }
 
 
