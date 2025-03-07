@@ -23,7 +23,7 @@ Deploy the contract to your NEAR account:
 cargo near deploy build-reproducible-wasm <your-account>.testnet
 
 # Or deploy using NEAR CLI
-near deploy <your-account>.testnet res/rugfactory.wasm
+near deploy <your-account>.testnet build_cargo/rugfactory_factory.wasm
 ```
 
 ## Initializing the Contract
