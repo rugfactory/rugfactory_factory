@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Generate ABI
-cargo near abi
+# cargo near abi
 
 # Build reproducible WASM
 cargo near build reproducible-wasm
