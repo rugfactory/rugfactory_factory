@@ -276,6 +276,52 @@ impl Contract {
                 NearToken::from_near(0),
                 near_sdk::Gas::from_tgas(30)
             )
+            // Register creator account with token contract
+            .then(
+                Promise::new(subaccount_id.clone())
+                    .function_call(
+                        "storage_deposit".to_string(),
+                        json!({"account_id": account_id}).to_string().into_bytes(),
+                        NearToken::from_near(0),
+                        near_sdk::Gas::from_tgas(30)
+                    )
+            )
+            // Transfer full supply to creator
+            .then(
+                Promise::new(subaccount_id.clone())
+                    .function_call(
+                        "ft_transfer".to_string(),
+                        json!({
+                            "receiver_id": account_id,
+                            "amount": "1000000000000000000000000000"
+                        }).to_string().into_bytes(),
+                        NearToken::from_yoctonear(1),
+                        near_sdk::Gas::from_tgas(30)
+                    )
+            )
+            // Register token with REF Finance
+            .then(
+                Promise::new(self.ref_contract.clone())
+                    .function_call(
+                        "storage_deposit".to_string(),
+                        json!({"account_id": subaccount_id}).to_string().into_bytes(),
+                        NearToken::from_near(1),
+                        near_sdk::Gas::from_tgas(30)
+                    )
+            )
+            // Create pool with wrapped NEAR
+            .then(
+                Promise::new(self.ref_contract.clone())
+                    .function_call(
+                        "add_simple_pool".to_string(),
+                        json!({
+                            "tokens": [subaccount_id.to_string(), self.wrap_near.to_string()],
+                            "fee": 25
+                        }).to_string().into_bytes(),
+                        NearToken::from_near(0),
+                        near_sdk::Gas::from_tgas(30)
+                    )
+            )
     }
 
     pub fn token_list_all(&self) -> Vec<(String, TokenMetadata)> {
