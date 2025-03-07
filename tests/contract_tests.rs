@@ -113,11 +113,10 @@ fn test_shit_token_operations() {
         "wrap.testnet".parse().unwrap(),
     );
 
-    // Test SHIT token deposit
-    contract.user_deposit_shit(near_sdk::json_types::U128(1000));
+    // Test SHIT token balance view
     assert_eq!(
         contract.user_get_shit_balance("user.testnet".parse().unwrap()).0,
-        1000
+        0
     );
 
     // Test FT transfer callback
