@@ -193,18 +193,25 @@ impl Contract {
         amount: U128,
         _msg: String,
     ) -> U128 {
+        // Verify the token sender is our SHIT token contract
         assert_eq!(
             env::predecessor_account_id(),
             self.shit_token,
             "Only accept SHIT token"
         );
 
+        // Update user's SHIT token balance
         let balance = self.user_shit_balances.get(&sender_id).unwrap_or(&0);
-        self.user_shit_balances.insert(sender_id, balance + amount.0);
+        self.user_shit_balances.insert(sender_id.clone(), balance + amount.0);
+
+        env::log_str(&format!(
+            "Deposited {} SHIT tokens for {}",
+            amount.0,
+            sender_id
+        ));
 
         U128(0) // Accept all tokens
     }
-
 
 
 
@@ -361,7 +368,6 @@ impl Contract {
             )
     }
 }
-
 
 
 
