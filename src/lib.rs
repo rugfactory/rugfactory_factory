@@ -12,7 +12,7 @@ pub struct TokenMetadata {
     pub name: String,
     pub symbol: String,
     pub icon: Option<String>,
-    pub creator_id: AccountId,
+    pub creator_id: String,
 }
 
 #[near_bindgen]
@@ -255,7 +255,7 @@ impl Contract {
             name: name.clone(),
             symbol: symbol.clone(),
             icon: Some(icon_data.clone()),
-            creator_id: account_id.clone(),
+            creator_id: account_id.to_string(),
         };
 
         // Store token info
