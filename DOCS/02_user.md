@@ -13,7 +13,7 @@ Before depositing SHIT tokens, ensure the contract is registered with the SHIT t
 near call shit-237.factory.v10.meme-cooking.testnet storage_deposit '{"account_id": "<your-account>.testnet"}' --accountId <your-account>.testnet --deposit 0.00125
 
 # Deposit SHIT tokens to contract
-near call shit-237.factory.v10.meme-cooking.testnet ft_transfer_call '{"receiver_id": "<your-account>.testnet", "amount": "1000000000000000000000", "msg": ""}' --accountId <your-account>.testnet --deposit 0.000000000000000000000001
+near call shit-237.factory.v10.meme-cooking.testnet ft_transfer_call '{"receiver_id": "<your-account>.testnet", "amount": "1000000000000000000000", "msg": ""}' --accountId <your-account>.testnet --deposit 0.000000000000000000000001 --gas 100000000000000
 ```
 
 ### Check SHIT Balance
