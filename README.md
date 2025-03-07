@@ -87,12 +87,15 @@ the methods for depositing may not be needed, because contract can keep track of
 
 token methods and summary of actions
 <br/>
-this is separate from the whole create form ideas and rug token side of the contract, and this is so users can create tokens if they want to be the full owner. will deduct 1000 $SHIT and 1.90 Near from the users balance when they call this method.
+this is separate from the whole create form ideas and rug token side of the contract, and this is so users can create tokens if they want to be the full owner. will deduct 1000 $SHIT and 1.99 Near from the users balance when they call this method.
 we will probly use this method for the rug side of the contract as well, and it will be nice to take some steps like register with ref and create a new lp when new tokens are created
-- token_create, for creating a new token, will create a new subaccount send 1.77 near and deplpoy token conrtact and init with new
+all tokens are created with conrtact's account being the owener, and then registering the user adress and sending them the tokens
+contract will keep track of who created what tokens are created, and who created what idea, so that when the tokens are deleted we can refund the user their money back to their account. only 1.5 near can be refunded to their account not the full amount.
+- token_create, for creating a new token, will create a new subaccount send 1.90 near and deplpoy token conrtact and init with new
 - token_list_all, for listing all the tokens that have been created
 - token_add_token, for adding tokens to the list that may not be on the list, also users cannot create tokens on this list, owner only
 - token_remove_token, for removeing a token from the list, owner only
+- token_delete, for calling the "rugfactory_token_delete" method on the token account
 
 **ideas summary**
 - anyone can submit ideas
