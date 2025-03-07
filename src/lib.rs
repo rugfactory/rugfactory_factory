@@ -191,6 +191,7 @@ impl Contract {
 
 
 
+/// TESTS
 
 #[cfg(test)]
 mod tests {
