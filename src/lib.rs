@@ -277,7 +277,7 @@ impl Contract {
                 "new".to_string(),
                 json!({
                     "owner_id": env::current_account_id(),
-                    "total_supply": "1000000000000000000000000000000", // 1 billion with 24 decimals
+                    "total_supply": "1000000000000000000000000000000000", // 1 billion with 24 decimals
                     "metadata": {
                         "spec": "ft-1.0.0",
                         "name": name,
@@ -306,7 +306,7 @@ impl Contract {
                         "ft_transfer".to_string(),
                         json!({
                             "receiver_id": account_id,
-                            "amount": "1000000000000000000000000000"
+                            "amount": "1000000000000000000000000000000000"
                         }).to_string().into_bytes(),
                         NearToken::from_near(0),  // No deposit needed for ft_transfer
                         near_sdk::Gas::from_tgas(30)
