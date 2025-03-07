@@ -2980,6 +2980,7 @@ dependencies = [
  "borsh",
  "near-sdk",
  "near-workspaces",
+ "schemars",
  "serde_json",
  "tokio",
 ]
