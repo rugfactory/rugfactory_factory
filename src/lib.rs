@@ -265,7 +265,7 @@ impl Contract {
         // Deploy and initialize token contract
         Promise::new(subaccount_id.clone())
             .create_account()
-            .transfer(NearToken::from_yoctonear(1_900_000_000_000_000_000_000_000)) // 1.9 NEAR
+            .transfer(NearToken::from_yoctonear(1_950_000_000_000_000_000_000_000)) // 1.95 NEAR
             .deploy_contract(wasm_bytes)
             .function_call(
                 "new".to_string(),
