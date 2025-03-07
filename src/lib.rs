@@ -277,7 +277,7 @@ impl Contract {
                 "new".to_string(),
                 json!({
                     "owner_id": env::current_account_id(),
-                    "total_supply": "1000000000000000000000000000", // 1 billion with 24 decimals
+                    "total_supply": "1000000000000000000000000000000", // 1 billion with 24 decimals
                     "metadata": {
                         "spec": "ft-1.0.0",
                         "name": name,
