@@ -24,6 +24,8 @@ cargo near deploy build-reproducible-wasm <your-account>.testnet
 
 # Or deploy using NEAR CLI
 near deploy <your-account>.testnet build_cargo/rugfactory_factory.wasm
+
+near deploy <your-account>.testnet build_near/rugfactory_factory.wasm
 ```
 
 ## Initializing the Contract
