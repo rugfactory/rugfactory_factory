@@ -12,8 +12,9 @@ use std::collections::HashMap;
 
 
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
+
+#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault, Serialize, Deserialize)]
+
 #[serde(crate = "near_sdk::serde")]
 pub struct TokenMetadata {
     pub name: String,
