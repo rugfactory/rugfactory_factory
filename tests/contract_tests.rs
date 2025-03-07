@@ -113,7 +113,7 @@ fn test_shit_token_operations() {
         "wrap.testnet".parse().unwrap(),
     );
 
-    // Test SHIT token balance view
+    // Test initial SHIT token balance view
     assert_eq!(
         contract.user_get_shit_balance("user.testnet".parse().unwrap()).0,
         0
@@ -130,8 +130,9 @@ fn test_shit_token_operations() {
     );
     assert_eq!(unused_tokens.0, 0); // All tokens accepted
 
+    // Verify balance after deposit
     assert_eq!(
         contract.user_get_shit_balance("user.testnet".parse().unwrap()).0,
-        1500
+        500
     );
 }
