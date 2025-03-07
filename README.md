@@ -85,7 +85,7 @@ the methods for depositing may not be needed, because contract can keep track of
 - ft_on_transfer
 
 
-token methods and summary of actions
+✅ token methods and summary of actions
 <br/>
 this is separate from the whole create form ideas and rug token side of the contract, and this is so users can create tokens if they want to be the full owner. will deduct 1000 $SHIT and 1.99 Near from the users balance when they call this method.
 we will probly use this method for the rug side of the contract as well, and it will be nice to take some steps like register with ref and create a new lp when new tokens are created
