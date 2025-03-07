@@ -2,8 +2,6 @@ use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::json_types::U128;
 use near_sdk::{env, log, near_bindgen, AccountId, NearToken, PanicOnDefault, Promise};
 use near_sdk::serde::{Deserialize, Serialize};
-use std::fs;
-use near_sdk::base64;
 use near_sdk::serde_json::json;
 use std::collections::HashMap;
 
@@ -11,10 +9,7 @@ use std::collections::HashMap;
 
 
 
-#[near_bindgen]
-
-#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault, Serialize, Deserialize)]
-
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
 #[serde(crate = "near_sdk::serde")]
 pub struct TokenMetadata {
     pub name: String,
@@ -23,6 +18,8 @@ pub struct TokenMetadata {
     pub creator_id: AccountId,
 }
 
+#[near_bindgen]
+#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Contract {
     owner_id: AccountId,
     ref_contract: AccountId,
@@ -243,9 +240,9 @@ impl Contract {
 
         // Create metadata
         let metadata = TokenMetadata {
-            name,
+            name: name.clone(),
             symbol: symbol.clone(),
-            icon: Some(icon_data),
+            icon: Some(icon_data.clone()),
             creator_id: account_id.clone(),
         };
 
@@ -278,12 +275,12 @@ impl Contract {
                     }
                 }).to_string().into_bytes(),
                 NearToken::from_near(0),
-                NearToken::from_gas(30_000_000_000_000)
+                near_sdk::Gas::from_tgas(30)
             )
     }
 
     pub fn token_list_all(&self) -> Vec<(String, TokenMetadata)> {
-        self.tokens.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+        self.tokens.iter().map(|(k, v)| (k.to_string(), v.to_owned())).collect::<Vec<(String, TokenMetadata)>>()
     }
 }
 
