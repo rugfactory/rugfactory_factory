@@ -10,10 +10,10 @@ Before depositing SHIT tokens, ensure the contract is registered with the SHIT t
 
 ```bash
 # Register contract with SHIT token (if not already done)
-near call shit-237.factory.v10.meme-cooking.testnet storage_deposit '{"account_id": "<your-account>.testnet"}' --accountId <your-account>.testnet --amount 0.00125
+near call shit-237.factory.v10.meme-cooking.testnet storage_deposit '{"account_id": "<your-account>.testnet"}' --accountId <your-account>.testnet --deposit 0.00125
 
 # Deposit SHIT tokens to contract
-near call shit-237.factory.v10.meme-cooking.testnet ft_transfer_call '{"receiver_id": "<your-account>.testnet", "amount": "1000000000000000000000", "msg": ""}' --accountId <your-account>.testnet --amount 0.000000000000000000000001
+near call shit-237.factory.v10.meme-cooking.testnet ft_transfer_call '{"receiver_id": "<your-account>.testnet", "amount": "1000000000000000000000", "msg": ""}' --accountId <your-account>.testnet --deposit 0.000000000000000000000001
 ```
 
 ### Check SHIT Balance
@@ -34,7 +34,7 @@ Expected output:
 
 ```bash
 # Deposit NEAR to the contract (amount in yoctoNEAR)
-near call <your-account>.testnet user_deposit_near '' --accountId <your-account>.testnet --amount 2
+near call <your-account>.testnet user_deposit_near '{}' --accountId <your-account>.testnet --deposit 2
 ```
 
 Expected output:
