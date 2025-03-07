@@ -181,6 +181,7 @@ the owener should also be able to run the init method to update the contract inf
 - 24 deciamls satndard for token creation
 - 1 billion token supply
 - default icon, and max icon size 1KB
+- 0.10% fee for lp pair
 
 
 ---

@@ -329,7 +329,7 @@ impl Contract {
                         "add_simple_pool".to_string(),
                         json!({
                             "tokens": [subaccount_id.to_string(), self.wrap_near.to_string()],
-                            "fee": 25
+                            "fee": 10 // 0.10% fee for lp pair
                         }).to_string().into_bytes(),
                         NearToken::from_near(0),
                         near_sdk::Gas::from_tgas(30)
