@@ -151,12 +151,6 @@ impl Contract {
         self.user_near_balances.insert(account_id, balance + deposit);
     }
 
-    pub fn user_deposit_shit(&mut self, amount: U128) {
-        let account_id = env::predecessor_account_id();
-        let balance = self.user_shit_balances.get(&account_id).unwrap_or(&0);
-        self.user_shit_balances.insert(account_id, balance + amount.0);
-    }
-
     // User balance view methods
     pub fn user_get_near_balance(&self, account_id: AccountId) -> U128 {
         U128(*self.user_near_balances.get(&account_id).unwrap_or(&0))
