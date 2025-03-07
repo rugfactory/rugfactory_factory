@@ -50,6 +50,27 @@ impl Contract {
         }
     }
 
+    pub fn admin_update_info(
+        &mut self,
+        ref_contract: AccountId,
+        shit_token: AccountId,
+        wrap_near: AccountId,
+    ) {
+        // Verify caller is the owner
+        assert_eq!(
+            env::predecessor_account_id(),
+            self.owner_id,
+            "Only the owner can update contract info"
+        );
+
+        // Update contract info
+        self.ref_contract = ref_contract;
+        self.shit_token = shit_token;
+        self.wrap_near = wrap_near;
+
+        log!("Contract info updated successfully");
+    }
+
 
 
 

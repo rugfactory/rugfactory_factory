@@ -163,6 +163,7 @@ for getting details from ref, there should already be wraped near deposited in r
 the owener should also be able to run the init method to update the contract info whenever they want
 
 - admin_get_info, returns contract configuration information including owner_id, contract addresses
+- admin_update_info, to update info
 
 ---
 

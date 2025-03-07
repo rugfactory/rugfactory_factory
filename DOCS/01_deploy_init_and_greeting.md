@@ -32,7 +32,7 @@ After deployment, initialize the contract with required addresses:
 
 ```bash
 # Initialize with testnet addresses
-near call <your-account>.testnet init '{"owner_id": "<your-account>.testnet", "ref_contract": "ref-finance-101.testnet", "wrap_near_contract": "wrap.testnet", "shit_token_contract": "shit-237.factory.v10.meme-cooking.testnet"}' --accountId <your-account>.testnet
+near call <your-account>.testnet init '{"owner_id": "<your-account>.testnet", "ref_contract": "ref-finance-101.testnet", "wrap_near_contract": "wrap.testnet", "shit_token": "shit-237.factory.v10.meme-cooking.testnet"}' --accountId <your-account>.testnet
 
 # Initialize with mainnet addresses
 near call <your-account>.near init '{"owner_id": "<your-account>.near", "ref_contract": "v2.ref-finance.near", "wrap_near_contract": "wrap.near", "shit_token_contract": "shit-1170.meme-cooking.near"}' --accountId <your-account>.near
@@ -80,3 +80,59 @@ Expected output after setting greeting:
 ```
 
 > Note: All amounts for SHIT tokens are in their smallest unit (18 decimals). For example, 100 SHIT = 100000000000000000000
+
+## Admin Methods
+
+These methods are restricted to the contract owner and are used to view and update contract configuration.
+
+### View Contract Configuration
+
+```bash
+# View current contract configuration (testnet)
+near view <your-account>.testnet admin_get_info
+
+# View current contract configuration (mainnet)
+near view <your-account>.near admin_get_info
+```
+
+Expected output:
+```json
+{
+  "owner_id": "<your-account>.testnet",
+  "ref_contract": "ref-finance-101.testnet",
+  "wrap_near_contract": "wrap.testnet",
+  "shit_token_contract": "shit-237.factory.v10.meme-cooking.testnet"
+}
+```
+
+### Update Contract Configuration
+
+Only the contract owner can update the contract configuration:
+
+```bash
+# Update contract configuration (testnet)
+near call <your-account>.testnet admin_update_info '{
+  "owner_id": "new-owner.testnet",
+  "ref_contract": "new-ref.testnet",
+  "wrap_near_contract": "new-wrap.testnet",
+  "shit_token_contract": "new-shit.testnet"
+}' --accountId <your-account>.testnet
+
+# Update contract configuration (mainnet)
+near call <your-account>.near admin_update_info '{
+  "owner_id": "new-owner.near",
+  "ref_contract": "new-ref.near",
+  "wrap_near_contract": "new-wrap.near",
+  "shit_token_contract": "new-shit.near"
+}' --accountId <your-account>.near
+```
+
+Expected output:
+```json
+{
+  "status": "Success",
+  "message": "Contract configuration updated successfully"
+}
+```
+
+> Note: Only the contract owner can call admin_update_info. Attempting to call this method from a non-owner account will result in an error.
