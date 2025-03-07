@@ -154,31 +154,22 @@ for getting details from ref, there should already be wraped near deposited in r
 
 
 
-get/update - admin
-some of these are view only, and the ones that are callable are only callable by the account owner. the contract address should include both the testnet and mainnet address, but maybe even though they both will be in the contract only return the one for the network the contract is on, and i guess if they update the contract address of the shit token or ref they only have to do it for the network the contract is deployed to.
-- get_owner_id, should return the near account this contract is deployed to, and this is how the contract should now what network it it on
-- get_shit_contract_address, should return the contract address of the shit token used for payment and rewards
-- update_shit_contract_address, if owner want to use a different token for payment and reward
-- get_ref_contract, should return ref finance contract address
-- update_ref_contract, if ref finance contract address changes
-- get_factory_contract, should return the token factory contract address
-- update_factory_contract, if token factory contract address changes
-- get_wrapped_near_address, should return the wrapped NEAR token contract address
-- update_wrapped_near_address, if wrapped NEAR token contract address changes
-- get_info, returns all contract configuration information including owner_id, contract addresses
+✅ admin - the owener should also be able to run the init method to update the contract info whenever they want
+- admin_get_info, returns contract configuration information including owner_id, contract addresses
 
+---
 
 🤑 Prices and fees :: to keep track of what i am chaing people
 - charge user 1000 $SHIT for creating a token
-- charge user 1.90 Near for creating a token, and 1000 $SHIT
-- charge user 1.90 Near and 1000 $SHIT for submiting an idea, the 1.90 Near goes to token creation if there idea gets that far or refunded back to their account if not.
+- charge user 1.99 Near for creating a token, and 1000 $SHIT
+- charge user 1000 $SHIT for submiting an idea
 - charge user 1000 $SHIT for adding time
 - charge user 1000 $SHIT for removing time
 - charge user 100 $SHIT for updating greeting
-- internal: send 1.77 Near to the new token account when creating token
+- internal: send 1.90 Near to the new token account when creating token
 
 ℹ️ Other info in case I forgot to mention it elsewheer
-- 18 deciamls satndard for token creation
+- 24 deciamls satndard for token creation
 - 1 billion token supply
 - default icon, and max icon size 1KB
 

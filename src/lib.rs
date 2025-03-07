@@ -89,6 +89,26 @@ impl Contract {
 
 
     /// 👋
+    /// Admin methods
+    pub fn admin_get_info(&self) -> (AccountId, AccountId, AccountId, AccountId) {
+        (
+            self.owner_id.clone(),
+            self.ref_contract.clone(),
+            self.shit_token.clone(),
+            self.wrap_near.clone(),
+        )
+    }
+
+
+
+
+
+
+
+    
+
+
+    /// 👋
     /// User methods
 
     // User deposit methods
