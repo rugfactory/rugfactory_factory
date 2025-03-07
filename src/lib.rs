@@ -4,12 +4,9 @@ use near_sdk::{env, log, near_bindgen, AccountId, NearToken, PanicOnDefault, Pro
 use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::serde_json::json;
 use std::collections::HashMap;
+use schemars::JsonSchema;
 
-
-
-
-
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Clone, JsonSchema)]
 #[serde(crate = "near_sdk::serde")]
 pub struct TokenMetadata {
     pub name: String,
