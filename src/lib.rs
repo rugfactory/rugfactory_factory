@@ -191,21 +191,30 @@ impl Contract {
         &mut self,
         sender_id: AccountId,
         amount: U128,
-        _msg: String,
+        msg: String,
     ) -> U128 {
         // Verify the token sender is our SHIT token contract
-        assert_eq!(
-            env::predecessor_account_id(),
-            self.shit_token,
-            "Only accept SHIT token"
-        );
+        let token_contract = env::predecessor_account_id();
+        if token_contract != self.shit_token {
+            env::log_str(&format!(
+                "Rejected token deposit from {}, only accepting SHIT token ({})",
+                token_contract,
+                self.shit_token
+            ));
+            return amount; // Return all tokens if wrong token contract
+        }
+
+        // Try to deserialize the message if provided
+        if !msg.is_empty() {
+            env::log_str(&format!("Processing deposit message: {}", msg));
+        }
 
         // Update user's SHIT token balance
         let balance = self.user_shit_balances.get(&sender_id).unwrap_or(&0);
         self.user_shit_balances.insert(sender_id.clone(), balance + amount.0);
 
         env::log_str(&format!(
-            "Deposited {} SHIT tokens for {}",
+            "Successfully deposited {} SHIT tokens for {}",
             amount.0,
             sender_id
         ));
