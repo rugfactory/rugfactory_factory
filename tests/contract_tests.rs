@@ -43,7 +43,7 @@ fn test_greeting() {
     // Add some SHIT balance for testing
     contract.user_shit_balances.insert(
         "user.testnet".parse().unwrap(),
-        200, // More than required 100 SHIT
+        100000000000000000000, // 100 SHIT with 18 decimals
     );
 
     assert_eq!(contract.greeting_get(), "Hello");
@@ -53,7 +53,7 @@ fn test_greeting() {
     // Check SHIT balance was deducted
     assert_eq!(
         contract.user_get_shit_balance("user.testnet".parse().unwrap()).0,
-        100
+        0 // Balance should be 0 after deducting 100 SHIT
     );
 }
 
