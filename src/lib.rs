@@ -116,12 +116,12 @@ impl Contract {
         let account_id = env::predecessor_account_id();
         let balance = self.user_shit_balances.get(&account_id).unwrap_or(&0);
         assert!(
-            balance >= &100,
+            balance >= &100000000000000000000,
             "Not enough SHIT token balance. Need 100 SHIT to update greeting"
         );
 
         // Deduct SHIT tokens
-        self.user_shit_balances.insert(account_id, balance - 100);
+        self.user_shit_balances.insert(account_id, balance - 100000000000000000000);
 
         log!("Saving greeting: {}", greeting);
         self.greeting = greeting;
