@@ -160,10 +160,9 @@ for getting details from ref, there should already be wraped near deposited in r
 
 ✅ admin
 <br/>
-the owener should also be able to run the init method to update the contract info whenever they want
-
 - admin_get_info, returns contract configuration information including owner_id, contract addresses
 - admin_update_info, to update info
+- todo: admin_get_balance, for returning the near balance available for contract owner that is not taken out by storage or is not users balances
 
 ---
 
