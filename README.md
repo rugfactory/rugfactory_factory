@@ -174,7 +174,7 @@ the owener should also be able to run the init method to update the contract inf
 - charge user 1000 $SHIT for adding time
 - charge user 1000 $SHIT for removing time
 - charge user 100 $SHIT for updating greeting
-- internal: send 1.90 Near to the new token account when creating token
+- internal: send 1.95 Near to the new token account when creating token
 
 ℹ️ Other info in case I forgot to mention it elsewheer
 - 24 deciamls satndard for token creation
