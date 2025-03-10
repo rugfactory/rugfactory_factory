@@ -64,7 +64,7 @@ Before setting a new greeting, ensure you have:
 
 ```bash
 # First, register the contract with SHIT token if not already done
-near call shit-237.factory.v10.meme-cooking.testnet storage_deposit '{"account_id": "<your-account>.testnet"}' --accountId <your-account>.testnet --amount 0.00125
+near call shit-237.factory.v10.meme-cooking.testnet storage_deposit '{"account_id": "<your-account>.testnet"}' --accountId <your-account>.testnet --deposit 0.00125
 
 # Deposit SHIT tokens to contract (amount should be more than 100 SHIT)
 near call shit-237.factory.v10.meme-cooking.testnet ft_transfer_call '{"receiver_id": "<your-account>.testnet", "amount": "100", "msg": ""}' --accountId <your-account>.testnet --amount 0.000000000000000000000001
