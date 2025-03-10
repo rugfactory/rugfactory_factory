@@ -34,7 +34,7 @@ After deployment, initialize the contract with required addresses:
 
 ```bash
 # Initialize with testnet addresses
-near call <your-account>.testnet init '{"owner_id": "<your-account>.testnet", "ref_contract": "ref-finance-101.testnet", "wrap_near_contract": "wrap.testnet", "shit_token": "shit-237.factory.v10.meme-cooking.testnet"}' --accountId <your-account>.testnet
+near call <your-account>.testnet init '{"owner_id": "<your-account>.testnet", "ref_contract": "ref-finance-101.testnet", "wrap_near_contract": "wrap.testnet", "shit_token_contract": "shit-237.factory.v10.meme-cooking.testnet"}' --accountId <your-account>.testnet
 
 # Initialize with mainnet addresses
 near call <your-account>.near init '{"owner_id": "<your-account>.near", "ref_contract": "v2.ref-finance.near", "wrap_near_contract": "wrap.near", "shit_token_contract": "shit-1170.meme-cooking.near"}' --accountId <your-account>.near
