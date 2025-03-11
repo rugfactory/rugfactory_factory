@@ -139,7 +139,7 @@ fn test_shit_token_operations() {
 
 #[test]
 fn test_admin_get_balance() {
-    let mut context = get_context(false);
+    let context = get_context(false);
     testing_env!(context.clone());
 
     let mut contract = Contract::init(
@@ -158,11 +158,11 @@ fn test_admin_get_balance() {
         .signer_account_id("user.testnet".parse().unwrap())
         .predecessor_account_id("owner.testnet".parse().unwrap())
         .attached_deposit(NearToken::from_near(1))
-        .account_balance(NearToken::from_near(2))
+        .account_balance(NearToken::from_near(1))
         .build();
     testing_env!(context);
 
-    // Available balance should be: 2 NEAR - 1 NEAR (user deposit) - 0.001 NEAR (storage)
+    // Available balance should be: 1 NEAR - 0.001 NEAR (storage)
     let admin_balance = contract.admin_get_balance();
     assert_eq!(
         admin_balance.0,
