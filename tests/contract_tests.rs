@@ -153,10 +153,14 @@ fn test_admin_get_balance() {
     contract.user_deposit_near(); // Deposits 1 NEAR
 
     // Set contract balance to 2 NEAR for testing
-    testing_env!(context
-        .account_balance(NearToken::from_near(2))
+    let context = VMContextBuilder::new()
+        .current_account_id("contract.testnet".parse().unwrap())
+        .signer_account_id("user.testnet".parse().unwrap())
         .predecessor_account_id("owner.testnet".parse().unwrap())
-        .build());
+        .attached_deposit(NearToken::from_near(1))
+        .account_balance(NearToken::from_near(2))
+        .build();
+    testing_env!(context);
 
     // Available balance should be: 2 NEAR - 1 NEAR (user deposit) - 0.001 NEAR (storage)
     let admin_balance = contract.admin_get_balance();
