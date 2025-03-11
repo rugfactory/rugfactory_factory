@@ -96,6 +96,32 @@ impl Contract {
         )
     }
 
+    pub fn admin_get_balance(&self) -> U128 {
+        // Verify caller is the owner
+        assert_eq!(
+            env::predecessor_account_id(),
+            self.owner_id,
+            "Only the owner can view admin balance"
+        );
+
+        // Calculate total user deposits
+        let total_user_deposits: u128 = self.user_near_balances.values().sum();
+
+        // Get contract's total balance
+        let contract_balance = env::account_balance().as_yoctonear() as u128;
+
+        // Calculate available balance (total - user deposits)
+        // Note: We keep a small amount for storage costs
+        let storage_cost = 1_000_000_000_000_000_000_000; // 0.001 NEAR for storage
+        let available_balance = if contract_balance > total_user_deposits + storage_cost {
+            contract_balance - total_user_deposits - storage_cost
+        } else {
+            0
+        };
+
+        U128(available_balance)
+    }
+
 
 
 
