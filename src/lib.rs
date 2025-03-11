@@ -249,7 +249,7 @@ impl Contract {
         let shit_balance = self.user_shit_balances.get(&account_id).unwrap_or(&0);
         
         assert!(near_balance >= &1_990_000_000_000_000_000_000_000, "Not enough NEAR balance. Need 1.99 NEAR");
-        assert!(shit_balance >= &1000, "Not enough SHIT balance. Need 1000 SHIT");
+        assert!(shit_balance >= &1000000000000000000000, "Not enough SHIT balance. Need 1000 SHIT");
 
         // Validate symbol (will be used as subaccount name)
         assert!(symbol.chars().all(|c| c.is_ascii_alphanumeric()), "Symbol must be alphanumeric");
@@ -261,7 +261,7 @@ impl Contract {
 
         // Deduct fees
         self.user_near_balances.insert(account_id.clone(), near_balance - 1_990_000_000_000_000_000_000_000);
-        self.user_shit_balances.insert(account_id.clone(), shit_balance - 1000);
+        self.user_shit_balances.insert(account_id.clone(), shit_balance - 1000000000000000000000);
 
         // Create metadata
         let metadata = TokenMetadata {
