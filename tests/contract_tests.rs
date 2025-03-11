@@ -162,10 +162,10 @@ fn test_admin_get_balance() {
         .build();
     testing_env!(context);
 
-    // Available balance should be: 1 NEAR - 0.001 NEAR (storage)
+    // Available balance should be 0 since storage cost (4 NEAR) is greater than contract balance (1 NEAR)
     let admin_balance = contract.admin_get_balance();
     assert_eq!(
         admin_balance.0,
-        999_000_000_000_000_000_000_000 // ~0.999 NEAR
+        0 // Contract balance (1 NEAR) - user deposits (1 NEAR) - storage cost (4 NEAR) = 0
     );
 }
