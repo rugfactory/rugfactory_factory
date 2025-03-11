@@ -182,8 +182,8 @@ fn test_token_delete_and_refund() {
         "wrap.testnet".parse().unwrap(),
     );
 
-    // Create a test token
-    let token_symbol = "TEST".to_string();
+    // Create a test token with valid account ID as symbol
+    let token_symbol = "token.testnet".to_string();
     let token_metadata = TokenMetadata {
         name: "Test Token".to_string(),
         symbol: token_symbol.clone(),
@@ -191,11 +191,6 @@ fn test_token_delete_and_refund() {
         creator_id: "user.testnet".to_string(),
     };
     contract.tokens.insert(token_symbol.clone(), token_metadata);
-
-    // Set up context for token deletion
-    context.predecessor_account_id = "user.testnet".parse().unwrap();
-    context.account_balance = NearToken::from_near(2); // Set contract balance to cover refund
-    testing_env!(context);
 
     // Delete token and verify promise was created
     let delete_promise = contract.token_delete(token_symbol.clone());
