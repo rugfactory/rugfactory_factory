@@ -1,5 +1,5 @@
 use near_sdk::test_utils::VMContextBuilder;
-use near_sdk::{testing_env, VMContext, AccountId, NearToken};
+use near_sdk::{testing_env, VMContext, NearToken};
 use rugfactory_factory::Contract;
 
 fn get_context(is_view: bool) -> VMContext {
@@ -134,5 +134,34 @@ fn test_shit_token_operations() {
     assert_eq!(
         contract.user_get_shit_balance("user.testnet".parse().unwrap()).0,
         500
+    );
+}
+
+#[test]
+fn test_admin_get_balance() {
+    let mut context = get_context(false);
+    testing_env!(context.clone());
+
+    let mut contract = Contract::init(
+        "owner.testnet".parse().unwrap(),
+        "ref.testnet".parse().unwrap(),
+        "shit.testnet".parse().unwrap(),
+        "wrap.testnet".parse().unwrap(),
+    );
+
+    // Set up test environment with some user deposits
+    contract.user_deposit_near(); // Deposits 1 NEAR
+
+    // Set contract balance to 2 NEAR for testing
+    testing_env!(context
+        .account_balance(NearToken::from_near(2))
+        .predecessor_account_id("owner.testnet".parse().unwrap())
+        .build());
+
+    // Available balance should be: 2 NEAR - 1 NEAR (user deposit) - 0.001 NEAR (storage)
+    let admin_balance = contract.admin_get_balance();
+    assert_eq!(
+        admin_balance.0,
+        999_000_000_000_000_000_000_000 // ~0.999 NEAR
     );
 }
