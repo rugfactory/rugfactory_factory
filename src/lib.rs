@@ -105,7 +105,7 @@ impl Contract {
 
         // Calculate available balance (total - user deposits)
         // Note: We keep a small amount for storage costs
-        let storage_cost = 1_000_000_000_000_000_000_000; // 0.001 NEAR for storage
+        let storage_cost = 4_000_000_000_000_000_000_000_000; // 4 NEAR for storage
         let available_balance = if contract_balance > total_user_deposits + storage_cost {
             contract_balance - total_user_deposits - storage_cost
         } else {
