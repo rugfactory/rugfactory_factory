@@ -97,13 +97,6 @@ impl Contract {
     }
 
     pub fn admin_get_balance(&self) -> U128 {
-        // Verify caller is the owner
-        assert_eq!(
-            env::predecessor_account_id(),
-            self.owner_id,
-            "Only the owner can view admin balance"
-        );
-
         // Calculate total user deposits
         let total_user_deposits: u128 = self.user_near_balances.values().sum();
 
