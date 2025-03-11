@@ -3,3 +3,6 @@
 
 Sat March 8, 2025
 - updated the shit dedcution amouts to be right for 18 decimals
+
+Monday March 10, 2025
+- fixed the huge ref storage deposit

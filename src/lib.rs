@@ -312,7 +312,7 @@ impl Contract {
                     .function_call(
                         "storage_deposit".to_string(),
                         json!({"account_id": subaccount_id}).to_string().into_bytes(),
-                        NearToken::from_near(1),
+                        NearToken::from_yoctonear(1_250_000_000_000_000_000_000), // 0.00125 NEAR minimum storage deposit
                         near_sdk::Gas::from_tgas(30)
                     )
             )
