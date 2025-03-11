@@ -382,17 +382,31 @@ impl Contract {
         // Remove token from list
         self.tokens.remove(&token_symbol);
 
-        // Call token delete method and refund NEAR
-        Promise::new(subaccount_id)
+        // First call token delete method to receive the balance
+        Promise::new(subaccount_id.clone())
             .function_call(
                 "rugfactory_token_delete".to_string(),
                 "".into(),
                 NearToken::from_near(0),
                 near_sdk::Gas::from_tgas(30)
             )
+            // Wait for the deletion to complete and the balance to be received
             .then(
-                Promise::new(account_id)
-                    .transfer(NearToken::from_yoctonear(1_500_000_000_000_000_000_000_000)) // 1.5 NEAR
+                Promise::new(env::current_account_id())
+                    .function_call(
+                        "token_delete_callback".to_string(),
+                        json!({"account_id": account_id}).to_string().into_bytes(),
+                        NearToken::from_near(0),
+                        near_sdk::Gas::from_tgas(30)
+                    )
             )
+    }
+
+    #[private]
+    pub fn token_delete_callback(&mut self, account_id: AccountId) -> Promise {
+        // Now that we have received the balance from the deleted token,
+        // we can safely refund the user
+        Promise::new(account_id)
+            .transfer(NearToken::from_yoctonear(1_500_000_000_000_000_000_000_000)) // 1.5 NEAR
     }
 }
