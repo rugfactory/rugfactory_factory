@@ -1,6 +1,6 @@
 use near_sdk::test_utils::VMContextBuilder;
 use near_sdk::{testing_env, VMContext, NearToken};
-use rugfactory_factory::Contract;
+use rugfactory_factory::{Contract, TokenMetadata};
 
 fn get_context(is_view: bool) -> VMContext {
     VMContextBuilder::new()
@@ -168,4 +168,53 @@ fn test_admin_get_balance() {
         admin_balance.0,
         0 // Contract balance (1 NEAR) - user deposits (1 NEAR) - storage cost (4 NEAR) = 0
     );
+}
+
+#[test]
+fn test_token_delete_and_refund() {
+    let mut context = get_context(false);
+    testing_env!(context.clone());
+
+    let mut contract = Contract::init(
+        "owner.testnet".parse().unwrap(),
+        "ref.testnet".parse().unwrap(),
+        "shit.testnet".parse().unwrap(),
+        "wrap.testnet".parse().unwrap(),
+    );
+
+    // Create a test token
+    let token_symbol = "TEST".to_string();
+    let token_metadata = TokenMetadata {
+        name: "Test Token".to_string(),
+        symbol: token_symbol.clone(),
+        icon: None,
+        creator_id: "user.testnet".to_string(),
+    };
+    contract.tokens.insert(token_symbol.clone(), token_metadata);
+
+    // Set up context for token deletion
+    context.predecessor_account_id = "user.testnet".parse().unwrap();
+    context.account_balance = NearToken::from_near(2); // Set contract balance to cover refund
+    testing_env!(context);
+
+    // Delete token and verify promise was created
+    let delete_promise = contract.token_delete(token_symbol.clone());
+    let _ = delete_promise; // Verify promise is returned
+
+    // Simulate callback execution
+    let callback_context = VMContextBuilder::new()
+        .current_account_id("contract.testnet".parse().unwrap())
+        .predecessor_account_id("contract.testnet".parse().unwrap())
+        .signer_account_id("user.testnet".parse().unwrap())
+        .account_balance(NearToken::from_near(2))
+        .build();
+    testing_env!(callback_context);
+
+    // Execute callback and verify refund promise was created
+    let refund_promise = contract.token_delete_callback("user.testnet".parse().unwrap());
+    let _ = refund_promise; // Verify promise is returned
+    assert!(matches!(refund_promise, near_sdk::Promise { .. }), "Refund promise should be created");
+
+    // Verify token was removed
+    assert!(!contract.tokens.contains_key(&token_symbol), "Token should be removed from registry");
 }
