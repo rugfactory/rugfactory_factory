@@ -325,13 +325,22 @@ impl Contract {
                         near_sdk::Gas::from_tgas(30)
                     )
             )
-            // Register token with REF Finance
+            // Register token with REF Finance (register both token and REF contract)
             .then(
                 Promise::new(self.ref_contract.clone())
                     .function_call(
                         "storage_deposit".to_string(),
                         json!({"account_id": subaccount_id}).to_string().into_bytes(),
                         NearToken::from_yoctonear(1_250_000_000_000_000_000_000), // 0.00125 NEAR minimum storage deposit
+                        near_sdk::Gas::from_tgas(30)
+                    )
+            )
+            .then(
+                Promise::new(subaccount_id.clone())
+                    .function_call(
+                        "storage_deposit".to_string(),
+                        json!({"account_id": self.ref_contract}).to_string().into_bytes(),
+                        NearToken::from_yoctonear(1_250_000_000_000_000_000_000), // 0.00125 NEAR for REF registration
                         near_sdk::Gas::from_tgas(30)
                     )
             )
